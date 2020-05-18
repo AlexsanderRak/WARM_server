@@ -1,0 +1,71 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>Registration</servlet-name>
+    <servlet-class>com.demo.Registration</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Registration</servlet-name>
+    <url-pattern>/registration</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetPage</servlet-name>
+    <servlet-class>com.demo.DemoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetPage</servlet-name>
+    <url-pattern>/getPage</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>com.demo.Login</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddPerson</servlet-name>
+    <servlet-class>com.demo.AddPerson</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddPerson</servlet-name>
+    <url-pattern>/addPerson</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddEquipment</servlet-name>
+    <servlet-class>com.demo.AddEquipment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddEquipment</servlet-name>
+    <url-pattern>/addEquipment</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddProject</servlet-name>
+    <servlet-class>com.demo.AddProject</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddProject</servlet-name>
+    <url-pattern>/addProject</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddTask</servlet-name>
+    <servlet-class>com.demo.AddTask</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddTask</servlet-name>
+    <url-pattern>/addTask</url-pattern>
+  </servlet-mapping>
+
+</web-app>
+
