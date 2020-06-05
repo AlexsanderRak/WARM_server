@@ -1,5 +1,10 @@
 package com.demo;
 
+import com.google.gson.Gson;
+import jdk.nashorn.internal.ir.debug.JSONWriter;
+import netscape.javascript.JSException;
+import netscape.javascript.JSObject;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +16,7 @@ import java.io.PrintWriter;
 import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.Arrays;
+
 
 
 @WebServlet(name = "Registration")
@@ -36,7 +42,15 @@ public class Registration extends HttpServlet {
             ConnectBD.addUser(token, firstName, lastName, email, password, companiesName, roleInt, "null", "null", "null");
 
             response.setStatus(HttpServletResponse.SC_OK);
-            String json = "{key: 'response', token: '" + token + "'}";
+
+            String json = "token:" + token + "," +
+                    "firstName:"+firstName+"," +
+                    "lastName:"+lastName+"," +
+                    "email:"+email+"," +
+                    "access:0," +
+                    "company:"+companiesName+"," +
+                    "roleInt:"+roleInt+"";
+
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);

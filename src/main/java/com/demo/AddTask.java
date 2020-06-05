@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.SecureRandom;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @WebServlet(name = "AddTask")
@@ -35,7 +36,7 @@ public class AddTask extends HttpServlet {
             ConnectBD.addTask(projectName, taskName, description, uid, developer, urgency, time, deadline, companiesName);
 
             response.setStatus(HttpServletResponse.SC_OK);
-            String json = "{key: 'response', value: 'all good'}";
+            String json = "value:all good";
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);
@@ -53,17 +54,100 @@ public class AddTask extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("<h3>Hello AddTask!</h3> <br/>" +
-                "*String taskName\n <br/>" +
-                "String description\n <br/>" +
-                "String developer\n <br/>" +
-                "*String projectName \n <br/>" +
-                "*String urgency \n <br/>" +
-                "String time \n <br/>" +
-                "String deadline \n <br/>" +
-                "*String companiesName \n <br/>");
+        setAccessControlHeaders(response);
+        request.setCharacterEncoding("UTF-8");
+
+        String company = request.getParameter("company");
+        String access = request.getParameter("access");
+        int accessInt = Integer.parseInt(access);
+
+
+
+        try {
+            // get Project
+            ResultSet res = ConnectBD.getProject(company);
+
+            String projectName = null;
+            String projects = "";
+            while (res.next()) {
+                projectName = res.getString("project_name");
+                if (projects.equals("")) {
+                    projects = projectName;
+                } else {
+                    projects += "&& " + projectName;
+                }
+
+            }
+
+            // get Tasks
+            ResultSet resTasks = ConnectBD.getTasks(company);
+
+            String uid = null;
+            String taskName = null;
+            String descriptions = null;
+            String developers = null;
+            String timeToNeed = null;
+            String timeReal = null;
+            String urgency = null;
+            String project = null;
+            String task_status = null;
+            String deadline = null;
+
+            String json = "";
+
+            while (resTasks.next()) {
+                uid = resTasks.getString("uid");
+                taskName = resTasks.getString("task_name");
+                descriptions = resTasks.getString("description");
+                developers = resTasks.getString("developer");
+                timeToNeed = resTasks.getString("timeToNeed");
+                timeReal = resTasks.getString("timeReal");
+                urgency = resTasks.getString("urgency");
+                project = resTasks.getString("project");
+                task_status = resTasks.getString("task_status");
+                deadline = resTasks.getString("deadline");
+
+
+                json +="uid:" + uid + "," +
+                        "taskName:" + taskName + "," +
+                        "descriptions:" + descriptions + "," +
+                        "developers:" + developers + "," +
+                        "timeToNeed:" + timeToNeed + "," +
+                        "timeReal:" + timeReal + "," +
+                        "urgency:" + urgency + "," +
+                        "project:" + project + "," +
+                        "projectName:" + projects + "," +
+                        "task_status:" + task_status + "," +
+                        "deadline:" + deadline + ";";
+            }
+
+            response.setStatus(HttpServletResponse.SC_OK);
+
+
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(json);
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+
+
+
+
+
+//        response.setContentType("text/html");
+//        PrintWriter out = response.getWriter();
+//        out.println("<h3>Hello AddTask!</h3> <br/>" +
+//                "*String taskName\n <br/>" +
+//                "String description\n <br/>" +
+//                "String developer\n <br/>" +
+//                "*String projectName \n <br/>" +
+//                "*String urgency \n <br/>" +
+//                "String time \n <br/>" +
+//                "String deadline \n <br/>" +
+//                "*String companiesName \n <br/>");
     }
 }
 

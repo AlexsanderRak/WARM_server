@@ -39,13 +39,13 @@ public class Login extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             } else {
                 response.setStatus(HttpServletResponse.SC_OK);
-                String json = "{key: 'response', " +
-                        "token: '" + token + "', " +
-                        "firstName: '" + firstName + "', " +
-                        "lastName: '" + lastName + "', " +
-                        "company: '" + company + "', " +
-                        "access: '" + access + "', " +
-                        "role: '" + role + "'}";
+
+                String json = "token:" + token + "," +
+                        "firstName:" + firstName + "," +
+                        "lastName:" + lastName + "," +
+                        "company:" + company + "," +
+                        "access:" + access + "," +
+                        "role:" + role + "";
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().write(json);

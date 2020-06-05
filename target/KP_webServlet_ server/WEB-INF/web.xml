@@ -67,5 +67,14 @@
     <url-pattern>/addTask</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>ChangeStatus</servlet-name>
+    <servlet-class>com.demo.ChangeStatus</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChangeStatus</servlet-name>
+    <url-pattern>/changeStatus</url-pattern>
+  </servlet-mapping>
+
 </web-app>
 
